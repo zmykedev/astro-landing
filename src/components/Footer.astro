@@ -2,16 +2,80 @@
 ---
 <footer>
   <div class="container">
-    <p>&copy; 2024 Lumina Photography. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="brand">
+        <span class="logo">α</span>
+        <span class="logo-text">Sony α6700</span>
+      </div>
+      <nav class="footer-links">
+        <a href="#features">Características</a>
+        <a href="#gallery">Galería</a>
+        <a href="https://www.sony.com" target="_blank" rel="noopener">Sony.com</a>
+      </nav>
+      <p class="copyright">&copy; 2024 Sony Corporation. Todos los derechos reservados.</p>
+      <p class="disclaimer">Este es un sitio de demostración no oficial.</p>
+    </div>
   </div>
 </footer>
 
 <style>
   footer {
-    padding: 4rem 0;
+    padding: 4rem 0 2rem;
     background-color: #000;
     text-align: center;
     color: var(--color-secondary);
-    border-top: 1px solid #222;
+    border-top: 1px solid rgba(247, 147, 30, 0.2);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f7931e;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: #f7931e;
+  }
+
+  .copyright {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .disclaimer {
+    font-size: 0.75rem;
+    color: #555;
+    margin-top: 0.5rem;
   }
 </style>

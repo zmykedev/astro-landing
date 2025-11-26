@@ -1,29 +1,78 @@
 ---
+
 ---
-<section class="features">
+
+<section id="features" class="features">
   <div class="container">
-    <h2 class="section-title">Why Lumina?</h2>
+    <h2 class="section-title">
+      Características <span class="title-accent">Destacadas</span>
+    </h2>
     <div class="features-grid">
       <div class="feature reveal delay-1">
         <div class="icon-wrapper">
-          <div class="icon">✦</div>
+          <div class="icon">📷</div>
         </div>
-        <h3>Ultra High Resolution</h3>
-        <p>Capture every detail with our 100MP sensors.</p>
+        <div class="spec-number">26.0<span>MP</span></div>
+        <h3>Sensor APS-C Exmor R</h3>
+        <p>
+          Sensor CMOS retroiluminado con procesador BIONZ XR para un rendimiento
+          excepcional.
+        </p>
       </div>
       <div class="feature reveal delay-2">
         <div class="icon-wrapper">
-          <div class="icon">☀</div>
+          <div class="icon">🎬</div>
         </div>
-        <h3>Dynamic Range</h3>
-        <p>Experience true-to-life colors and lighting.</p>
+        <div class="spec-number">4K<span>120fps</span></div>
+        <h3>Video Profesional</h3>
+        <p>
+          Graba en 4K a 120fps, 10-bit 4:2:2 interno y S-Log3 para máxima
+          flexibilidad.
+        </p>
       </div>
       <div class="feature reveal delay-3">
         <div class="icon-wrapper">
-          <div class="icon">☾</div>
+          <div class="icon">🎯</div>
         </div>
-        <h3>Low Light Mastery</h3>
-        <p>Perfect shots even in the darkest environments.</p>
+        <div class="spec-number">759<span>puntos AF</span></div>
+        <h3>Autofoco IA Avanzado</h3>
+        <p>
+          Seguimiento en tiempo real de ojos, cara y cuerpo para humanos,
+          animales y aves.
+        </p>
+      </div>
+      <div class="feature reveal delay-4">
+        <div class="icon-wrapper">
+          <div class="icon">📱</div>
+        </div>
+        <div class="spec-number">5<span>ejes IBIS</span></div>
+        <h3>Estabilización Superior</h3>
+        <p>
+          Hasta 5 pasos de compensación para fotos nítidas y videos suaves sin
+          trípode.
+        </p>
+      </div>
+      <div class="feature reveal delay-5">
+        <div class="icon-wrapper">
+          <div class="icon">⚡</div>
+        </div>
+        <div class="spec-number">11<span>fps</span></div>
+        <h3>Disparo Continuo</h3>
+        <p>
+          Captura la acción con ráfagas de hasta 11 fps con seguimiento AF/AE
+          completo.
+        </p>
+      </div>
+      <div class="feature reveal delay-6">
+        <div class="icon-wrapper">
+          <div class="icon">🌙</div>
+        </div>
+        <div class="spec-number">ISO<span>32000</span></div>
+        <h3>Rendimiento Low Light</h3>
+        <p>
+          Rango ISO nativo de 100-32000, expandible hasta 102400 para
+          condiciones extremas.
+        </p>
       </div>
     </div>
   </div>
@@ -37,71 +86,150 @@
     z-index: 1;
   }
 
+  .features::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(247, 147, 30, 0.3),
+      transparent
+    );
+  }
+
+  .title-accent {
+    background: linear-gradient(to right, #f7931e, #ff6b35);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
     text-align: center;
   }
 
   .feature {
-    padding: 3rem 2rem;
-    background: rgba(255, 255, 255, 0.02);
+    padding: 2.5rem 2rem;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(0, 0, 0, 0.2)
+    );
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    transition: transform 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 20px;
+    transition:
+      transform 0.4s ease,
+      background-color 0.4s ease,
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f7931e, #ff6b35);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .feature:hover::before {
+    transform: scaleX(1);
   }
 
   .feature:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(247, 147, 30, 0.05);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(247, 147, 30, 0.1);
+    border-color: rgba(247, 147, 30, 0.2);
   }
 
   .icon-wrapper {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 2rem;
-    background: linear-gradient(135deg, #333, #111);
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     position: relative;
   }
 
   .icon-wrapper::after {
-    content: '';
+    content: "";
     position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    padding: 2px;
-    background: linear-gradient(to bottom right, #555, transparent);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    inset: -1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(247, 147, 30, 0.3), transparent);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
   }
 
   .icon {
-    font-size: 2.5rem;
-    color: var(--color-primary);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    font-size: 2rem;
+  }
+
+  .spec-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f7931e;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  .spec-number span {
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    font-weight: 400;
+    margin-left: 0.3rem;
   }
 
   .feature h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
     color: var(--color-primary);
   }
 
   .feature p {
     color: var(--color-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.3s; }
-  .delay-3 { transition-delay: 0.5s; }
+  .delay-1 {
+    transition-delay: 0.05s;
+  }
+  .delay-2 {
+    transition-delay: 0.1s;
+  }
+  .delay-3 {
+    transition-delay: 0.15s;
+  }
+  .delay-4 {
+    transition-delay: 0.2s;
+  }
+  .delay-5 {
+    transition-delay: 0.25s;
+  }
+  .delay-6 {
+    transition-delay: 0.3s;
+  }
 </style>
