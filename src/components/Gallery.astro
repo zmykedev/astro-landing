@@ -1,30 +1,102 @@
 ---
-const photos = [
-  { src: '/gallery_1.png', alt: 'Fotografía Macro', title: 'Detalle Macro', specs: '26MP • f/2.8 • ISO 100' },
-  { src: '/gallery_2.png', alt: 'Paisaje Montañoso', title: 'Paisaje 4K HDR', specs: '4K 60fps • S-Log3' },
-  { src: '/gallery_3.png', alt: 'Retrato Nocturno', title: 'Retrato Low Light', specs: 'ISO 12800 • Eye AF' },
+const galleries = [
+  {
+    id: "macro",
+    cover: "/gallery_1.png",
+    alt: "Fotografía Macro",
+    title: "Detalle Macro",
+    specs: "26MP • f/2.8 • ISO 100",
+    images: ["/gallery_1.png", "/detalle_1.png", "/detalle_2.png"],
+  },
+  {
+    id: "paisaje",
+    cover: "/gallery_2.png",
+    alt: "Paisaje Montañoso",
+    title: "Paisaje 4K HDR",
+    specs: "4K 60fps • S-Log3",
+    images: ["/gallery_2.png", "/4k_1.png", "/4k_2.png"],
+  },
+  {
+    id: "retrato",
+    cover: "/gallery_3.png",
+    alt: "Retrato Nocturno",
+    title: "Retrato Low Light",
+    specs: "ISO 12800 • Eye AF",
+    images: ["/gallery_3.png", "/retrato_1.png", "/retrato_2.png"],
+  },
 ];
 ---
 
 <section id="gallery" class="gallery-section">
   <div class="container">
-    <h2 class="section-title">Capturado con <span class="title-accent">α6700</span></h2>
+    <h2 class="section-title">
+      Capturado con <span class="title-accent">α6700</span>
+    </h2>
     <div class="gallery-grid">
-      {photos.map((photo, index) => (
-        <div class="gallery-item reveal" style={`transition-delay: ${index * 0.2}s`}>
-          <div class="tilt-content">
-            <img src={photo.src} alt={photo.alt} loading="lazy" />
-            <div class="overlay">
-              <span class="photo-specs">{photo.specs}</span>
-              <h3>{photo.title}</h3>
-              <span class="view-btn">Ver Foto</span>
+      {
+        galleries.map((gallery, index) => (
+          <div
+            class="gallery-item reveal"
+            style={`transition-delay: ${index * 0.2}s`}
+            data-gallery-id={gallery.id}
+            data-images={JSON.stringify(gallery.images)}
+            data-title={gallery.title}
+            data-specs={gallery.specs}
+          >
+            <div class="tilt-content">
+              <img src={gallery.cover} alt={gallery.alt} loading="lazy" />
+              <div class="overlay">
+                <span class="photo-specs">{gallery.specs}</span>
+                <h3>{gallery.title}</h3>
+                <span class="view-btn">Ver Galería</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
+
+<!-- Slider Modal -->
+<div id="slider-modal" class="slider-modal">
+  <button class="slider-close" aria-label="Cerrar">&times;</button>
+  <div class="slider-header">
+    <h3 class="slider-title"></h3>
+    <span class="slider-specs"></span>
+  </div>
+  <div class="slider-container">
+    <button class="slider-nav slider-prev" aria-label="Anterior">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M15 18l-6-6 6-6"></path>
+      </svg>
+    </button>
+    <div class="slider-3d-wrapper">
+      <div class="slider-3d-track">
+        <!-- Images will be injected here -->
+      </div>
+    </div>
+    <button class="slider-nav slider-next" aria-label="Siguiente">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="slider-footer">
+    <div class="slider-indicators"></div>
+    <span class="slider-counter"></span>
+  </div>
+</div>
 
 <style>
   .gallery-section {
@@ -59,8 +131,10 @@ const photos = [
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    transition: transform 0.1s ease-out, box-shadow 0.4s ease;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    transition:
+      transform 0.1s ease-out,
+      box-shadow 0.4s ease;
   }
 
   .gallery-item:hover .tilt-content {
@@ -85,7 +159,7 @@ const photos = [
     width: 100%;
     height: 100%;
     padding: 2.5rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent 60%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 60%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -101,7 +175,7 @@ const photos = [
     font-size: 0.85rem;
     color: #f7931e;
     letter-spacing: 1px;
-    font-family: 'SF Mono', 'Consolas', monospace;
+    font-family: "SF Mono", "Consolas", monospace;
     transform: translateY(20px);
     transition: transform 0.4s ease;
     margin-bottom: 0.5rem;
@@ -130,7 +204,9 @@ const photos = [
     letter-spacing: 2px;
     color: var(--color-secondary);
     transform: translateY(20px);
-    transition: transform 0.4s ease 0.1s, color 0.3s ease;
+    transition:
+      transform 0.4s ease 0.1s,
+      color 0.3s ease;
   }
 
   .gallery-item:hover .view-btn {
@@ -140,31 +216,398 @@ const photos = [
   .view-btn:hover {
     color: #f7931e;
   }
+
+  /* 3D Slider Modal Styles */
+  .slider-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slider-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .slider-modal .slider-header {
+    transform: translateY(-30px);
+    opacity: 0;
+    transition:
+      transform 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.1s,
+      opacity 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.1s;
+  }
+
+  .slider-modal.active .slider-header {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .slider-modal .slider-container {
+    transform: scale(0.9);
+    opacity: 0;
+    transition:
+      transform 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.15s,
+      opacity 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.15s;
+  }
+
+  .slider-modal.active .slider-container {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .slider-modal .slider-footer {
+    transform: translateY(20px);
+    opacity: 0;
+    transition:
+      transform 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.25s,
+      opacity 0.6s cubic-bezier(0.32, 0.72, 0, 1) 0.25s;
+  }
+
+  .slider-modal.active .slider-footer {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .slider-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .slider-close:hover {
+    background: #f7931e;
+    border-color: #f7931e;
+    transform: rotate(90deg);
+  }
+
+  .slider-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .slider-title {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .slider-specs {
+    font-size: 1rem;
+    color: #f7931e;
+    font-family: "SF Mono", "Consolas", monospace;
+    letter-spacing: 2px;
+  }
+
+  .slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 2rem;
+  }
+
+  .slider-nav {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .slider-nav svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .slider-nav:hover {
+    background: rgba(247, 147, 30, 0.2);
+    border-color: #f7931e;
+    transform: scale(1.1);
+  }
+
+  .slider-3d-wrapper {
+    width: 100%;
+    max-width: 900px;
+    height: 550px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .slider-3d-track {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.slider-3d-slide) {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  :global(.slider-3d-slide.active) {
+    display: block;
+  }
+
+  :global(.slider-3d-slide img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slider-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .slider-indicators {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  :global(.slider-indicator) {
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(.slider-indicator::after) {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #f7931e, #ff6b35);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  :global(.slider-indicator:hover) {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  :global(.slider-indicator.active::after) {
+    width: 100%;
+  }
+
+  .slider-counter {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: "SF Mono", "Consolas", monospace;
+    letter-spacing: 2px;
+  }
+
+  .slider-counter .current {
+    color: #f7931e;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .slider-3d-wrapper {
+      height: 300px;
+      max-width: 100%;
+    }
+
+    .slider-nav {
+      width: 45px;
+      height: 45px;
+    }
+
+    .slider-title {
+      font-size: 1.8rem;
+    }
+  }
 </style>
 
 <script>
   // 3D Tilt Effect
-  const items = document.querySelectorAll('.gallery-item') as NodeListOf<HTMLElement>;
+  const items = document.querySelectorAll(
+    ".gallery-item"
+  ) as NodeListOf<HTMLElement>;
 
-  items.forEach(item => {
-    const content = item.querySelector('.tilt-content') as HTMLElement;
+  items.forEach((item) => {
+    const content = item.querySelector(".tilt-content") as HTMLElement;
 
-    item.addEventListener('mousemove', (e) => {
+    item.addEventListener("mousemove", (e) => {
       const rect = item.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg rotation
+
+      const rotateX = ((y - centerY) / centerY) * -5;
       const rotateY = ((x - centerX) / centerX) * 5;
 
       content.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
-    item.addEventListener('mouseleave', () => {
-      content.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    item.addEventListener("mouseleave", () => {
+      content.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
     });
+  });
+
+  // Slider Logic
+  const modal = document.getElementById("slider-modal") as HTMLElement;
+  const track = modal.querySelector(".slider-3d-track") as HTMLElement;
+  const indicatorsContainer = modal.querySelector(
+    ".slider-indicators"
+  ) as HTMLElement;
+  const counterEl = modal.querySelector(".slider-counter") as HTMLElement;
+  const titleEl = modal.querySelector(".slider-title") as HTMLElement;
+  const specsEl = modal.querySelector(".slider-specs") as HTMLElement;
+  const closeBtn = modal.querySelector(".slider-close") as HTMLElement;
+  const prevBtn = modal.querySelector(".slider-prev") as HTMLElement;
+  const nextBtn = modal.querySelector(".slider-next") as HTMLElement;
+
+  let currentIndex = 0;
+  let currentImages: string[] = [];
+
+  function openSlider(images: string[], title: string, specs: string) {
+    currentImages = images;
+    currentIndex = 0;
+    titleEl.textContent = title;
+    specsEl.textContent = specs;
+
+    // Create slides
+    track.innerHTML = images
+      .map(
+        (src, i) => `
+      <div class="slider-3d-slide ${i === 0 ? "active" : ""}">
+        <img src="${src}" alt="${title} - Imagen ${i + 1}" />
+      </div>
+    `
+      )
+      .join("");
+
+    // Create indicators
+    indicatorsContainer.innerHTML = images
+      .map(
+        (_, i) => `
+      <button class="slider-indicator ${i === 0 ? "active" : ""}" data-index="${i}"></button>
+    `
+      )
+      .join("");
+
+    updateCounter();
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSlider() {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function updateCounter() {
+    counterEl.innerHTML = `<span class="current">${String(currentIndex + 1).padStart(2, "0")}</span> / ${String(currentImages.length).padStart(2, "0")}`;
+  }
+
+  function goToSlide(newIndex: number) {
+    if (newIndex < 0) newIndex = currentImages.length - 1;
+    if (newIndex >= currentImages.length) newIndex = 0;
+
+    const slides = track.querySelectorAll(".slider-3d-slide");
+    const indicators =
+      indicatorsContainer.querySelectorAll(".slider-indicator");
+
+    // Remove active from all
+    slides.forEach((s) => s.classList.remove("active"));
+    indicators.forEach((ind) => ind.classList.remove("active"));
+
+    // Add active to current
+    slides[newIndex].classList.add("active");
+    indicators[newIndex].classList.add("active");
+
+    currentIndex = newIndex;
+    updateCounter();
+  }
+
+  // Event Listeners
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      const images = JSON.parse(item.dataset.images || "[]");
+      const title = item.dataset.title || "";
+      const specs = item.dataset.specs || "";
+      openSlider(images, title, specs);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeSlider);
+  prevBtn.addEventListener("click", () => goToSlide(currentIndex - 1));
+  nextBtn.addEventListener("click", () => goToSlide(currentIndex + 1));
+
+  indicatorsContainer.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains("slider-indicator")) {
+      goToSlide(parseInt(target.dataset.index || "0"));
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (!modal.classList.contains("active")) return;
+
+    switch (e.key) {
+      case "Escape":
+        closeSlider();
+        break;
+      case "ArrowLeft":
+        goToSlide(currentIndex - 1);
+        break;
+      case "ArrowRight":
+        goToSlide(currentIndex + 1);
+        break;
+    }
+  });
+
+  // Close on backdrop click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeSlider();
   });
 </script>
